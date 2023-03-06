@@ -222,21 +222,76 @@ namespace Calculator
         private void applyBttn_Click(object sender, EventArgs e)
         {
             string label = displayHistLabel.Text;
-            
+            string display = calculatorDisplay.Text;
+            double result;
+
             if (label == "")
             {
-                displayHistLabel.Text = calculatorDisplay.Text + " " + operators.Text;
+                displayHistLabel.Text = display + " " + operators.Text;
                 lastClicked = operators.Text;
             } else
             {
-                char lastLabel = label[label.Length - 1]; 
+                string initialNum;
+                char lastLabel = label[label.Length - 1];
+
                 if (lastLabel == '=')
                 {
-                    displayHistLabel.Text = ""; //remove
+                    displayHistLabel.Text = calculatorDisplay.Text + " " + operators.Text;
+                    lastClicked = operators.Text;
                 }
                 else
                 {
-                    //last clicked
+                    double initialDbl = 0;
+                    int operatorFound;
+                    
+                    if (label.Contains("+"))
+                    {
+                        operatorFound = label.IndexOf("+");
+                        initialNum = label.Substring(0, operatorFound - 1);
+
+                        initialDbl = Convert.ToDouble(initialNum);
+                        result = initialDbl + Convert.ToDouble(display);
+
+                        displayHistLabel.Text = result + " +";
+                        calculatorDisplay.Text = result.ToString();
+                        lastClicked = "+";
+                    }
+                    else if (label.Contains("-"))
+                    {
+                        operatorFound = label.IndexOf("-", 1);
+                        initialNum = label.Substring(0, operatorFound - 1);
+
+                        initialDbl = Convert.ToDouble(initialNum);
+                        result = initialDbl - Convert.ToDouble(display);
+
+                        displayHistLabel.Text = result + " -";
+                        calculatorDisplay.Text = result.ToString();
+                        lastClicked = "-";
+                    }
+                    else if (label.Contains("*"))
+                    {
+                        operatorFound = label.IndexOf("*");
+                        initialNum = label.Substring(0, operatorFound - 1);
+
+                        initialDbl = Convert.ToDouble(initialNum);
+                        result = initialDbl * Convert.ToDouble(display);
+
+                        displayHistLabel.Text = result + " *";
+                        calculatorDisplay.Text = result.ToString();
+                        lastClicked = "*";
+                    }
+                    else if (label.Contains("/"))
+                    {
+                        operatorFound = label.IndexOf("/");
+                        initialNum = label.Substring(0, operatorFound - 1);
+
+                        initialDbl = Convert.ToDouble(initialNum);
+                        result = initialDbl / Convert.ToDouble(display);
+
+                        displayHistLabel.Text = result + " /";
+                        calculatorDisplay.Text = result.ToString();
+                        lastClicked = "/";
+                    }
                 }
             }
         }
@@ -244,13 +299,42 @@ namespace Calculator
         private void delete_click(object sender, EventArgs e)
         {
             string label = displayHistLabel.Text;
-            char lastLabel = label[label.Length - 1];
-            if (lastLabel == '=')
+            int lengthOfDisplay = calculatorDisplay.Text.Length;
+
+            if (label == "")
             {
-                displayHistLabel.Text = "";
+                if (lengthOfDisplay == 1)
+                {
+                    calculatorDisplay.Text = "0";
+                }
+                else
+                {
+                    calculatorDisplay.Text = calculatorDisplay.Text.Substring(0, lengthOfDisplay - 1);
+                }
             } else
             {
-                //last clicked
+                char lastLabel = label[label.Length - 1];
+                if (lastLabel == '=')
+                {
+                    displayHistLabel.Text = "";
+                }
+                else
+                {
+                    if (lastClicked == "+" || lastClicked == "-" || lastClicked == "*" || lastClicked == "/")
+                    {
+                        Console.WriteLine("Ignore");
+                    } else
+                    {
+                        if (lengthOfDisplay == 1)
+                        {
+                            calculatorDisplay.Text = "0";
+                        }
+                        else
+                        {
+                            calculatorDisplay.Text = calculatorDisplay.Text.Substring(0, lengthOfDisplay - 1);
+                        }
+                    }
+                }
             }
         }
 
