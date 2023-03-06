@@ -22,7 +22,7 @@ namespace Calculator
             }
             else
             {
-                if (calculatorDisplay.Text == "0")
+                if (calculatorDisplay.Text == "0" || calculatorDisplay.Text == "Error!")
                 {
                     if (button.Text == ".")
                     {
@@ -168,12 +168,20 @@ namespace Calculator
                         displayHistLabel.Text = label + display + " =";
                         calculatorDisplay.Text = result.ToString();
                         break;
-                    case '/': //also consider divided by 0
+                    case '/':
                         initialDbl = Convert.ToDouble(initialNum);
-                        result = initialDbl / Convert.ToDouble(display);
 
-                        displayHistLabel.Text = label + display + " =";
-                        calculatorDisplay.Text = result.ToString();
+                        if (display == "0")
+                        {
+                            calculatorDisplay.Text = "Error!";
+                        }
+                        else
+                        {
+                            result = initialDbl / Convert.ToDouble(display);
+
+                            displayHistLabel.Text = label + display + " =";
+                            calculatorDisplay.Text = result.ToString();
+                        }
                         break;
                     default:
                         //check what the last character is. if number or equal
@@ -210,11 +218,18 @@ namespace Calculator
                             equalFound = equalFound - 1;
                             initialNum = label.Substring(operatorFound + 1, equalFound - operatorFound);
 
-                            initialDbl = Convert.ToDouble(initialNum);
-                            result = Convert.ToDouble(display) / initialDbl;
+                            if (initialNum == "0")
+                            {
+                                calculatorDisplay.Text = "Error!";
+                            }
+                            else
+                            {
+                                initialDbl = Convert.ToDouble(initialNum);
+                                result = Convert.ToDouble(display) / initialDbl;
 
-                            displayHistLabel.Text = display + "/" + initialNum + "=";
-                            calculatorDisplay.Text = result.ToString();
+                                displayHistLabel.Text = display + "/" + initialNum + "=";
+                                calculatorDisplay.Text = result.ToString();
+                            }
                         }
                         else if (label.Contains("-"))
                         {
@@ -288,15 +303,22 @@ namespace Calculator
                     }
                     else if (label.Contains("/"))
                     {
-                        operatorFound = label.IndexOf("/");
-                        initialNum = label.Substring(0, operatorFound - 1);
+                        if (display == "0")
+                        {
+                            calculatorDisplay.Text = "Error!";
+                        }
+                        else
+                        {
+                            operatorFound = label.IndexOf("/");
+                            initialNum = label.Substring(0, operatorFound - 1);
 
-                        initialDbl = Convert.ToDouble(initialNum);
-                        result = initialDbl / Convert.ToDouble(display);
+                            initialDbl = Convert.ToDouble(initialNum);
+                            result = initialDbl / Convert.ToDouble(display);
 
-                        displayHistLabel.Text = result + " /";
-                        calculatorDisplay.Text = result.ToString();
-                        lastClicked = "/";
+                            displayHistLabel.Text = result + " /";
+                            calculatorDisplay.Text = result.ToString();
+                            lastClicked = "/";
+                        }
                     }
                     else if (label.Contains("-"))
                     {
@@ -311,7 +333,8 @@ namespace Calculator
                             displayHistLabel.Text = result + " -";
                             calculatorDisplay.Text = result.ToString();
                             lastClicked = "-";
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
                         }
@@ -440,14 +463,6 @@ namespace Calculator
                 case Keys.Escape:
                     clearBttn.PerformClick();
                     break;
-                case Keys.OemMinus:
-                    operators.Text = "-";
-                    applyBttn.PerformClick();
-                    break;
-                case Keys.OemQuestion:
-                    operators.Text = "/";
-                    applyBttn.PerformClick();
-                    break;
             }
         }
 
@@ -473,6 +488,14 @@ namespace Calculator
                     operators.Text = "+";
                     applyBttn.PerformClick();
                     break;
+                case '-':
+                    operators.Text = "-";
+                    applyBttn.PerformClick();
+                    break;
+                case '/':
+                    operators.Text = "/";
+                    applyBttn.PerformClick();
+                    break;
                 case '8':
                     button8.PerformClick();
                     break;
@@ -480,6 +503,101 @@ namespace Calculator
                     equalBttn.PerformClick();
                     break;
             }
+        }
+
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clearBttn.PerformClick();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(calculatorDisplay.Text);
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (calculatorDisplay.Text == "0" || calculatorDisplay.Text == "Error!")
+            {
+                calculatorDisplay.Text = Clipboard.GetText();
+            }
+            else
+            {
+                calculatorDisplay.Text = calculatorDisplay.Text + Clipboard.GetText();
+            }
+        }
+
+        private void memoryStrBttn_Click(object sender, EventArgs e)
+        {
+            memoryListBox.Items.Add(calculatorDisplay.Text);
+            memoryClrBttn.Enabled = true;
+            memoryRcllBttn.Enabled = true;
+            memorySbtrctBttn.Enabled = true;
+            memorySmBttn.Enabled = true;
+            button11.Enabled = true;
+
+            lastClicked = "+";
+        }
+
+        private void memoryClrBttn_Click(object sender, EventArgs e)
+        {
+            memoryListBox.Items.Clear();
+            memoryClrBttn.Enabled = false;
+            memoryRcllBttn.Enabled = false;
+            memorySbtrctBttn.Enabled = false;
+            memorySmBttn.Enabled = false;
+            button11.Enabled = false;
+
+            if (memoryListBox.Visible == true)
+            {
+                memoryListBox.Visible = false;
+                Size = new Size(324, 434);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (memoryListBox.Visible == true)
+            {
+                memoryListBox.Visible = false;
+                Size = new Size(324, 434);
+            }
+            else
+            {
+                memoryListBox.Visible = true;
+                Size = new Size(451, 434);
+            }
+        }
+
+        private void memoryRcllBttn_Click(object sender, EventArgs e)
+        {
+            int numOfItems = memoryListBox.Items.Count;
+            calculatorDisplay.Text = memoryListBox.Items[numOfItems - 1].ToString();
+        }
+
+        private void memorySmBttn_Click(object sender, EventArgs e)
+        {
+            int numOfItems = memoryListBox.Items.Count;
+            var lastItem = memoryListBox.Items[numOfItems - 1];
+            double lastDbl = Convert.ToDouble(lastItem);
+            double result = lastDbl + Convert.ToDouble(calculatorDisplay.Text);
+
+            memoryListBox.Items[numOfItems - 1] = result.ToString();
+        }
+
+        private void memorySbtrctBttn_Click(object sender, EventArgs e)
+        {
+            int numOfItems = memoryListBox.Items.Count;
+            var lastItem = memoryListBox.Items[numOfItems - 1];
+            double lastDbl = Convert.ToDouble(lastItem);
+            double result = lastDbl - Convert.ToDouble(calculatorDisplay.Text);
+
+            memoryListBox.Items[numOfItems - 1] = result.ToString();
         }
     }
 }
