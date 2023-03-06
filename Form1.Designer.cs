@@ -60,7 +60,8 @@
             button1.Location = new Point(12, 271);
             button1.Name = "button1";
             button1.Size = new Size(52, 49);
-            button1.TabIndex = 0;
+            button1.TabIndex = 15;
+            button1.TabStop = false;
             button1.Text = "1";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button_click;
@@ -70,7 +71,8 @@
             button2.Location = new Point(70, 271);
             button2.Name = "button2";
             button2.Size = new Size(52, 49);
-            button2.TabIndex = 1;
+            button2.TabIndex = 16;
+            button2.TabStop = false;
             button2.Text = "2";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button_click;
@@ -80,7 +82,8 @@
             button3.Location = new Point(128, 271);
             button3.Name = "button3";
             button3.Size = new Size(52, 49);
-            button3.TabIndex = 2;
+            button3.TabIndex = 17;
+            button3.TabStop = false;
             button3.Text = "3";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button_click;
@@ -90,7 +93,8 @@
             button4.Location = new Point(12, 216);
             button4.Name = "button4";
             button4.Size = new Size(52, 49);
-            button4.TabIndex = 3;
+            button4.TabIndex = 10;
+            button4.TabStop = false;
             button4.Text = "4";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button_click;
@@ -100,7 +104,8 @@
             button5.Location = new Point(70, 216);
             button5.Name = "button5";
             button5.Size = new Size(52, 49);
-            button5.TabIndex = 4;
+            button5.TabIndex = 11;
+            button5.TabStop = false;
             button5.Text = "5";
             button5.UseVisualStyleBackColor = true;
             button5.Click += button_click;
@@ -110,7 +115,8 @@
             button6.Location = new Point(128, 216);
             button6.Name = "button6";
             button6.Size = new Size(52, 49);
-            button6.TabIndex = 5;
+            button6.TabIndex = 12;
+            button6.TabStop = false;
             button6.Text = "6";
             button6.UseVisualStyleBackColor = true;
             button6.Click += button_click;
@@ -120,7 +126,8 @@
             button7.Location = new Point(12, 161);
             button7.Name = "button7";
             button7.Size = new Size(52, 49);
-            button7.TabIndex = 6;
+            button7.TabIndex = 5;
+            button7.TabStop = false;
             button7.Text = "7";
             button7.UseVisualStyleBackColor = true;
             button7.Click += button_click;
@@ -130,7 +137,8 @@
             button8.Location = new Point(70, 161);
             button8.Name = "button8";
             button8.Size = new Size(52, 49);
-            button8.TabIndex = 7;
+            button8.TabIndex = 6;
+            button8.TabStop = false;
             button8.Text = "8";
             button8.UseVisualStyleBackColor = true;
             button8.Click += button_click;
@@ -140,7 +148,8 @@
             button9.Location = new Point(128, 161);
             button9.Name = "button9";
             button9.Size = new Size(52, 49);
-            button9.TabIndex = 8;
+            button9.TabIndex = 7;
+            button9.TabStop = false;
             button9.Text = "9";
             button9.UseVisualStyleBackColor = true;
             button9.Click += button_click;
@@ -150,7 +159,8 @@
             button10.Location = new Point(12, 326);
             button10.Name = "button10";
             button10.Size = new Size(110, 49);
-            button10.TabIndex = 9;
+            button10.TabIndex = 20;
+            button10.TabStop = false;
             button10.Text = "0";
             button10.UseVisualStyleBackColor = true;
             button10.Click += button_click;
@@ -160,7 +170,7 @@
             signBttn.Location = new Point(186, 271);
             signBttn.Name = "signBttn";
             signBttn.Size = new Size(52, 49);
-            signBttn.TabIndex = 17;
+            signBttn.TabIndex = 18;
             signBttn.Text = "±";
             signBttn.UseVisualStyleBackColor = true;
             signBttn.Click += signBttn_Click;
@@ -170,7 +180,8 @@
             clearBttn.Location = new Point(128, 106);
             clearBttn.Name = "clearBttn";
             clearBttn.Size = new Size(52, 49);
-            clearBttn.TabIndex = 16;
+            clearBttn.TabIndex = 3;
+            clearBttn.TabStop = false;
             clearBttn.Text = "C";
             clearBttn.UseVisualStyleBackColor = true;
             clearBttn.Click += clear_click;
@@ -180,7 +191,7 @@
             clearEntBttn.Location = new Point(70, 106);
             clearEntBttn.Name = "clearEntBttn";
             clearEntBttn.Size = new Size(52, 49);
-            clearEntBttn.TabIndex = 15;
+            clearEntBttn.TabIndex = 2;
             clearEntBttn.Text = "CE";
             clearEntBttn.UseVisualStyleBackColor = true;
             clearEntBttn.Click += clearEntBttn_Click;
@@ -190,7 +201,7 @@
             memorySbtrctBttn.Location = new Point(244, 216);
             memorySbtrctBttn.Name = "memorySbtrctBttn";
             memorySbtrctBttn.Size = new Size(52, 49);
-            memorySbtrctBttn.TabIndex = 23;
+            memorySbtrctBttn.TabIndex = 14;
             memorySbtrctBttn.Text = "M-";
             memorySbtrctBttn.UseVisualStyleBackColor = true;
             // 
@@ -199,7 +210,7 @@
             memorySmBttn.Location = new Point(186, 216);
             memorySmBttn.Name = "memorySmBttn";
             memorySmBttn.Size = new Size(52, 49);
-            memorySmBttn.TabIndex = 22;
+            memorySmBttn.TabIndex = 13;
             memorySmBttn.Text = "M+";
             memorySmBttn.UseVisualStyleBackColor = true;
             // 
@@ -208,7 +219,7 @@
             memoryStrBttn.Location = new Point(244, 161);
             memoryStrBttn.Name = "memoryStrBttn";
             memoryStrBttn.Size = new Size(52, 49);
-            memoryStrBttn.TabIndex = 21;
+            memoryStrBttn.TabIndex = 9;
             memoryStrBttn.Text = "MS";
             memoryStrBttn.UseVisualStyleBackColor = true;
             // 
@@ -217,7 +228,7 @@
             memoryRcllBttn.Location = new Point(186, 161);
             memoryRcllBttn.Name = "memoryRcllBttn";
             memoryRcllBttn.Size = new Size(52, 49);
-            memoryRcllBttn.TabIndex = 20;
+            memoryRcllBttn.TabIndex = 8;
             memoryRcllBttn.Text = "MR";
             memoryRcllBttn.UseVisualStyleBackColor = true;
             // 
@@ -226,7 +237,7 @@
             memoryClrBttn.Location = new Point(186, 106);
             memoryClrBttn.Name = "memoryClrBttn";
             memoryClrBttn.Size = new Size(110, 49);
-            memoryClrBttn.TabIndex = 19;
+            memoryClrBttn.TabIndex = 4;
             memoryClrBttn.Text = "MC";
             memoryClrBttn.UseVisualStyleBackColor = true;
             // 
@@ -235,7 +246,8 @@
             decimalBttn.Location = new Point(128, 326);
             decimalBttn.Name = "decimalBttn";
             decimalBttn.Size = new Size(52, 49);
-            decimalBttn.TabIndex = 24;
+            decimalBttn.TabIndex = 21;
+            decimalBttn.TabStop = false;
             decimalBttn.Text = ".";
             decimalBttn.UseVisualStyleBackColor = true;
             decimalBttn.Click += button_click;
@@ -245,7 +257,8 @@
             equalBttn.Location = new Point(186, 326);
             equalBttn.Name = "equalBttn";
             equalBttn.Size = new Size(52, 49);
-            equalBttn.TabIndex = 27;
+            equalBttn.TabIndex = 22;
+            equalBttn.TabStop = false;
             equalBttn.Text = "=";
             equalBttn.UseVisualStyleBackColor = true;
             equalBttn.Click += equalBttn_Click;
@@ -258,7 +271,7 @@
             operators.MaxDropDownItems = 4;
             operators.Name = "operators";
             operators.Size = new Size(52, 23);
-            operators.TabIndex = 29;
+            operators.TabIndex = 19;
             operators.Text = "+";
             // 
             // applyBttn
@@ -266,7 +279,7 @@
             applyBttn.Location = new Point(244, 326);
             applyBttn.Name = "applyBttn";
             applyBttn.Size = new Size(52, 49);
-            applyBttn.TabIndex = 30;
+            applyBttn.TabIndex = 23;
             applyBttn.Text = "Apply";
             applyBttn.UseVisualStyleBackColor = true;
             applyBttn.Click += applyBttn_Click;
@@ -276,18 +289,23 @@
             delBttn.Location = new Point(12, 106);
             delBttn.Name = "delBttn";
             delBttn.Size = new Size(52, 49);
-            delBttn.TabIndex = 32;
+            delBttn.TabIndex = 1;
+            delBttn.TabStop = false;
             delBttn.Text = "←";
             delBttn.UseVisualStyleBackColor = true;
             delBttn.Click += delete_click;
             // 
             // calculatorDisplay
             // 
+            calculatorDisplay.BackColor = Color.White;
             calculatorDisplay.Font = new Font("Bodoni MT", 32.25F, FontStyle.Regular, GraphicsUnit.Point);
+            calculatorDisplay.ForeColor = Color.Black;
             calculatorDisplay.Location = new Point(12, 41);
             calculatorDisplay.Name = "calculatorDisplay";
+            calculatorDisplay.ReadOnly = true;
             calculatorDisplay.Size = new Size(284, 59);
-            calculatorDisplay.TabIndex = 33;
+            calculatorDisplay.TabIndex = 24;
+            calculatorDisplay.TabStop = false;
             calculatorDisplay.Text = "0";
             calculatorDisplay.TextAlign = HorizontalAlignment.Right;
             // 
@@ -297,8 +315,9 @@
             displayHistLabel.BorderStyle = BorderStyle.None;
             displayHistLabel.Location = new Point(12, 12);
             displayHistLabel.Name = "displayHistLabel";
+            displayHistLabel.ReadOnly = true;
             displayHistLabel.Size = new Size(284, 16);
-            displayHistLabel.TabIndex = 34;
+            displayHistLabel.TabIndex = 0;
             displayHistLabel.TextAlign = HorizontalAlignment.Right;
             // 
             // Form1
@@ -332,10 +351,14 @@
             Controls.Add(button2);
             Controls.Add(button1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            KeyPreview = true;
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Calculator";
+            KeyDown += key_clicked;
+            KeyPress += key_pressed;
+            KeyUp += key_released;
             ResumeLayout(false);
             PerformLayout();
         }

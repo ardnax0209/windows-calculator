@@ -5,7 +5,7 @@ namespace Calculator
     public partial class Form1 : Form
     {
         string lastClicked = "";
-            
+
         public Form1()
         {
             InitializeComponent();
@@ -20,31 +20,32 @@ namespace Calculator
             {
                 calculatorDisplay.Text = button.Text;
             }
-            else {
+            else
+            {
                 if (calculatorDisplay.Text == "0")
                 {
-                        if (button.Text == ".")
-                        {
-                            calculatorDisplay.Text = calculatorDisplay.Text + button.Text;
-                        }
-                        else
-                        {
-                            calculatorDisplay.Text = button.Text;
-                        }
+                    if (button.Text == ".")
+                    {
+                        calculatorDisplay.Text = calculatorDisplay.Text + button.Text;
+                    }
+                    else
+                    {
+                        calculatorDisplay.Text = button.Text;
+                    }
                 }
                 else
                 {
-                        if (button.Text == ".")
-                        {
-                            if (!calculatorDisplay.Text.Contains('.'))
-                            {
-                                calculatorDisplay.Text = calculatorDisplay.Text + button.Text;
-                            }
-                        }
-                        else
+                    if (button.Text == ".")
+                    {
+                        if (!calculatorDisplay.Text.Contains('.'))
                         {
                             calculatorDisplay.Text = calculatorDisplay.Text + button.Text;
                         }
+                    }
+                    else
+                    {
+                        calculatorDisplay.Text = calculatorDisplay.Text + button.Text;
+                    }
                 }
             }
 
@@ -56,6 +57,8 @@ namespace Calculator
             calculatorDisplay.Text = "0";
             displayHistLabel.Text = "";
             lastClicked = "";
+
+            displayHistLabel.Focus();
         }
 
         private void signBttn_Click(object sender, EventArgs e)
@@ -64,59 +67,62 @@ namespace Calculator
             string display = calculatorDisplay.Text;
             string lastDisplay = display.Substring(0, 1);
 
-            if (label == "")
+            if (display != "0")
             {
-                if (lastDisplay == "-")
+                if (label == "")
                 {
-                    int displayLastChar = display.Length - 1; //to make zero-based
-                    string noNegativeSign = display.Substring(1, displayLastChar);
-                    calculatorDisplay.Text = noNegativeSign;
-                }
-                else
-                {
-                    calculatorDisplay.Text = "-" + calculatorDisplay.Text;
-                }
-            }
-            else
-            {
-                char lastLabel = label[label.Length - 1];
-                if (lastLabel == '=')
-                {
-                    string noNegativeSign;
-                    string oldVal = calculatorDisplay.Text;
                     if (lastDisplay == "-")
                     {
-                        int displayLastChar = display.Length - 1;
-                        noNegativeSign = display.Substring(1, displayLastChar);
+                        int displayLastChar = display.Length - 1; //to make zero-based
+                        string noNegativeSign = display.Substring(1, displayLastChar);
                         calculatorDisplay.Text = noNegativeSign;
                     }
                     else
                     {
-                        noNegativeSign = "-" + oldVal;
-                        calculatorDisplay.Text = noNegativeSign;
+                        calculatorDisplay.Text = "-" + calculatorDisplay.Text;
                     }
-
-                    displayHistLabel.Text = "negate(" + oldVal + ")";
                 }
                 else
                 {
-                    string noNegativeSign;
-                    string oldVal = calculatorDisplay.Text;
-                    if (lastDisplay == "-")
+                    char lastLabel = label[label.Length - 1];
+                    if (lastLabel == '=')
                     {
-                        int displayLastChar = display.Length - 1;
-                        noNegativeSign = display.Substring(1, displayLastChar);
-                        calculatorDisplay.Text = noNegativeSign;
+                        string noNegativeSign;
+                        string oldVal = calculatorDisplay.Text;
+                        if (lastDisplay == "-")
+                        {
+                            int displayLastChar = display.Length - 1;
+                            noNegativeSign = display.Substring(1, displayLastChar);
+                            calculatorDisplay.Text = noNegativeSign;
+                        }
+                        else
+                        {
+                            noNegativeSign = "-" + oldVal;
+                            calculatorDisplay.Text = noNegativeSign;
+                        }
+
+                        displayHistLabel.Text = "negate(" + oldVal + ")";
                     }
                     else
                     {
-                        noNegativeSign = "-" + oldVal;
-                        calculatorDisplay.Text = noNegativeSign;
-                    }
+                        string noNegativeSign;
+                        string oldVal = calculatorDisplay.Text;
+                        if (lastDisplay == "-")
+                        {
+                            int displayLastChar = display.Length - 1;
+                            noNegativeSign = display.Substring(1, displayLastChar);
+                            calculatorDisplay.Text = noNegativeSign;
+                        }
+                        else
+                        {
+                            noNegativeSign = "-" + oldVal;
+                            calculatorDisplay.Text = noNegativeSign;
+                        }
 
-                    if (lastClicked == "+" || lastClicked == "-" || lastClicked == "*" || lastClicked == "/")
-                    {
-                        displayHistLabel.Text = displayHistLabel.Text + "negate(" + oldVal + ")";
+                        if (lastClicked == "+" || lastClicked == "-" || lastClicked == "*" || lastClicked == "/")
+                        {
+                            displayHistLabel.Text = displayHistLabel.Text + "negate(" + oldVal + ")";
+                        }
                     }
                 }
             }
@@ -131,7 +137,8 @@ namespace Calculator
             if (label == "")
             {
                 displayHistLabel.Text = calculatorDisplay.Text + " =";
-            } else
+            }
+            else
             {
                 char lastLabel = label[label.Length - 1];
                 string initialNum = label.Substring(0, label.Length - 1);
@@ -173,43 +180,53 @@ namespace Calculator
                         if (label.Contains("+"))
                         {
                             operatorFound = label.IndexOf("+");
-                            initialNum = label.Substring(0, operatorFound - 1);
+                            int equalFound = label.IndexOf("=");
+                            equalFound = equalFound - 1;
+                            initialNum = label.Substring(operatorFound + 1, equalFound - operatorFound);
 
                             initialDbl = Convert.ToDouble(initialNum);
-                            result = initialDbl + Convert.ToDouble(display);
+                            result = Convert.ToDouble(display) + initialDbl;
 
-                            displayHistLabel.Text = label + " =";
+                            displayHistLabel.Text = display + "+" + initialNum + "=";
+                            calculatorDisplay.Text = result.ToString();
+                        }
+                        else if (label.Contains("*"))
+                        {
+                            operatorFound = label.IndexOf("*");
+                            int equalFound = label.IndexOf("=");
+                            equalFound = equalFound - 1;
+                            initialNum = label.Substring(operatorFound + 1, equalFound - operatorFound);
+
+                            initialDbl = Convert.ToDouble(initialNum);
+                            result = Convert.ToDouble(display) * initialDbl;
+
+                            displayHistLabel.Text = display + "*" + initialNum + "=";
+                            calculatorDisplay.Text = result.ToString();
+                        }
+                        else if (label.Contains('/'))
+                        {
+                            operatorFound = label.IndexOf("/");
+                            int equalFound = label.IndexOf("=");
+                            equalFound = equalFound - 1;
+                            initialNum = label.Substring(operatorFound + 1, equalFound - operatorFound);
+
+                            initialDbl = Convert.ToDouble(initialNum);
+                            result = Convert.ToDouble(display) / initialDbl;
+
+                            displayHistLabel.Text = display + "/" + initialNum + "=";
                             calculatorDisplay.Text = result.ToString();
                         }
                         else if (label.Contains("-"))
                         {
                             operatorFound = label.IndexOf("-", 1);
-                            initialNum = label.Substring(0, operatorFound - 1);
+                            int equalFound = label.IndexOf("=");
+                            equalFound = equalFound - 1;
+                            initialNum = label.Substring(operatorFound + 1, equalFound - operatorFound);
 
                             initialDbl = Convert.ToDouble(initialNum);
-                            result = initialDbl - Convert.ToDouble(display);
+                            result = Convert.ToDouble(display) - initialDbl;
 
-                            displayHistLabel.Text = label + " =";
-                            calculatorDisplay.Text = result.ToString();
-                        } else if (label.Contains("*"))
-                        {
-                            operatorFound = label.IndexOf("*");
-                            initialNum = label.Substring(0, operatorFound - 1);
-
-                            initialDbl = Convert.ToDouble(initialNum);
-                            result = initialDbl * Convert.ToDouble(display);
-
-                            displayHistLabel.Text = label + " =";
-                            calculatorDisplay.Text = result.ToString();
-                        } else if (label.Contains('/'))
-                        {
-                            operatorFound = label.IndexOf("/");
-                            initialNum = label.Substring(0, operatorFound - 1);
-
-                            initialDbl = Convert.ToDouble(initialNum);
-                            result = initialDbl / Convert.ToDouble(display);
-
-                            displayHistLabel.Text = label + " =";
+                            displayHistLabel.Text = display + "-" + initialNum + "=";
                             calculatorDisplay.Text = result.ToString();
                         }
                         break;
@@ -229,7 +246,8 @@ namespace Calculator
             {
                 displayHistLabel.Text = display + " " + operators.Text;
                 lastClicked = operators.Text;
-            } else
+            }
+            else
             {
                 string initialNum;
                 char lastLabel = label[label.Length - 1];
@@ -243,7 +261,7 @@ namespace Calculator
                 {
                     double initialDbl = 0;
                     int operatorFound;
-                    
+
                     if (label.Contains("+"))
                     {
                         operatorFound = label.IndexOf("+");
@@ -255,18 +273,6 @@ namespace Calculator
                         displayHistLabel.Text = result + " +";
                         calculatorDisplay.Text = result.ToString();
                         lastClicked = "+";
-                    }
-                    else if (label.Contains("-"))
-                    {
-                        operatorFound = label.IndexOf("-", 1);
-                        initialNum = label.Substring(0, operatorFound - 1);
-
-                        initialDbl = Convert.ToDouble(initialNum);
-                        result = initialDbl - Convert.ToDouble(display);
-
-                        displayHistLabel.Text = result + " -";
-                        calculatorDisplay.Text = result.ToString();
-                        lastClicked = "-";
                     }
                     else if (label.Contains("*"))
                     {
@@ -292,6 +298,24 @@ namespace Calculator
                         calculatorDisplay.Text = result.ToString();
                         lastClicked = "/";
                     }
+                    else if (label.Contains("-"))
+                    {
+                        operatorFound = label.IndexOf("-", 1);
+                        initialNum = label.Substring(0, operatorFound - 1);
+
+                        try
+                        {
+                            initialDbl = Convert.ToDouble(initialNum);
+                            result = initialDbl - Convert.ToDouble(display);
+
+                            displayHistLabel.Text = result + " -";
+                            calculatorDisplay.Text = result.ToString();
+                            lastClicked = "-";
+                        } catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
                 }
             }
         }
@@ -311,7 +335,8 @@ namespace Calculator
                 {
                     calculatorDisplay.Text = calculatorDisplay.Text.Substring(0, lengthOfDisplay - 1);
                 }
-            } else
+            }
+            else
             {
                 char lastLabel = label[label.Length - 1];
                 if (lastLabel == '=')
@@ -323,7 +348,8 @@ namespace Calculator
                     if (lastClicked == "+" || lastClicked == "-" || lastClicked == "*" || lastClicked == "/")
                     {
                         Console.WriteLine("Ignore");
-                    } else
+                    }
+                    else
                     {
                         if (lengthOfDisplay == 1)
                         {
@@ -358,6 +384,101 @@ namespace Calculator
                 {
                     calculatorDisplay.Text = "0";
                 }
+            }
+        }
+
+        private void key_clicked(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.D1:
+                case Keys.NumPad1:
+                    button1.PerformClick();
+                    break;
+                case Keys.D2:
+                case Keys.NumPad2:
+                    button2.PerformClick();
+                    break;
+                case Keys.D3:
+                case Keys.NumPad3:
+                    button3.PerformClick();
+                    break;
+                case Keys.D4:
+                case Keys.NumPad4:
+                    button4.PerformClick();
+                    break;
+                case Keys.D5:
+                case Keys.NumPad5:
+                    button5.PerformClick();
+                    break;
+                case Keys.D6:
+                case Keys.NumPad6:
+                    button6.PerformClick();
+                    break;
+                case Keys.D7:
+                case Keys.NumPad7:
+                    button7.PerformClick();
+                    break;
+                case Keys.NumPad8:
+                    button8.PerformClick();
+                    break;
+                case Keys.D9:
+                case Keys.NumPad9:
+                    button9.PerformClick();
+                    break;
+                case Keys.D0:
+                case Keys.NumPad0:
+                    button10.PerformClick();
+                    break;
+                case Keys.OemPeriod:
+                case Keys.Decimal:
+                    decimalBttn.PerformClick();
+                    break;
+                case Keys.Back:
+                    delBttn.PerformClick();
+                    break;
+                case Keys.Escape:
+                    clearBttn.PerformClick();
+                    break;
+                case Keys.OemMinus:
+                    operators.Text = "-";
+                    applyBttn.PerformClick();
+                    break;
+                case Keys.OemQuestion:
+                    operators.Text = "/";
+                    applyBttn.PerformClick();
+                    break;
+            }
+        }
+
+        private void key_released(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    equalBttn.PerformClick();
+                    break;
+            }
+        }
+
+        private void key_pressed(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '*':
+                    operators.Text = "*";
+                    applyBttn.PerformClick();
+                    break;
+                case '+':
+                    operators.Text = "+";
+                    applyBttn.PerformClick();
+                    break;
+                case '8':
+                    button8.PerformClick();
+                    break;
+                case '=':
+                    equalBttn.PerformClick();
+                    break;
             }
         }
     }
