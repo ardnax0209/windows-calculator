@@ -53,11 +53,24 @@
             delBttn = new Button();
             calculatorDisplay = new TextBox();
             displayHistLabel = new TextBox();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            clearToolStripMenuItem = new ToolStripMenuItem();
+            exitToolStripMenuItem = new ToolStripMenuItem();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            copyToolStripMenuItem = new ToolStripMenuItem();
+            pasteToolStripMenuItem = new ToolStripMenuItem();
+            exportToTextToolStripMenuItem = new ToolStripMenuItem();
+            exportToTextToolStripMenuItem1 = new ToolStripMenuItem();
+            importFromTextToolStripMenuItem = new ToolStripMenuItem();
+            memoryListBox = new ListBox();
+            button11 = new Button();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(12, 271);
+            button1.Location = new Point(12, 279);
             button1.Name = "button1";
             button1.Size = new Size(52, 49);
             button1.TabIndex = 15;
@@ -68,7 +81,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(70, 271);
+            button2.Location = new Point(70, 279);
             button2.Name = "button2";
             button2.Size = new Size(52, 49);
             button2.TabIndex = 16;
@@ -79,7 +92,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(128, 271);
+            button3.Location = new Point(128, 279);
             button3.Name = "button3";
             button3.Size = new Size(52, 49);
             button3.TabIndex = 17;
@@ -90,7 +103,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(12, 216);
+            button4.Location = new Point(12, 224);
             button4.Name = "button4";
             button4.Size = new Size(52, 49);
             button4.TabIndex = 10;
@@ -101,7 +114,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(70, 216);
+            button5.Location = new Point(70, 224);
             button5.Name = "button5";
             button5.Size = new Size(52, 49);
             button5.TabIndex = 11;
@@ -112,7 +125,7 @@
             // 
             // button6
             // 
-            button6.Location = new Point(128, 216);
+            button6.Location = new Point(128, 224);
             button6.Name = "button6";
             button6.Size = new Size(52, 49);
             button6.TabIndex = 12;
@@ -123,7 +136,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(12, 161);
+            button7.Location = new Point(12, 169);
             button7.Name = "button7";
             button7.Size = new Size(52, 49);
             button7.TabIndex = 5;
@@ -134,7 +147,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(70, 161);
+            button8.Location = new Point(70, 169);
             button8.Name = "button8";
             button8.Size = new Size(52, 49);
             button8.TabIndex = 6;
@@ -145,7 +158,7 @@
             // 
             // button9
             // 
-            button9.Location = new Point(128, 161);
+            button9.Location = new Point(128, 169);
             button9.Name = "button9";
             button9.Size = new Size(52, 49);
             button9.TabIndex = 7;
@@ -156,7 +169,7 @@
             // 
             // button10
             // 
-            button10.Location = new Point(12, 326);
+            button10.Location = new Point(12, 334);
             button10.Name = "button10";
             button10.Size = new Size(110, 49);
             button10.TabIndex = 20;
@@ -167,7 +180,7 @@
             // 
             // signBttn
             // 
-            signBttn.Location = new Point(186, 271);
+            signBttn.Location = new Point(186, 279);
             signBttn.Name = "signBttn";
             signBttn.Size = new Size(52, 49);
             signBttn.TabIndex = 18;
@@ -177,7 +190,7 @@
             // 
             // clearBttn
             // 
-            clearBttn.Location = new Point(128, 106);
+            clearBttn.Location = new Point(128, 114);
             clearBttn.Name = "clearBttn";
             clearBttn.Size = new Size(52, 49);
             clearBttn.TabIndex = 3;
@@ -188,7 +201,7 @@
             // 
             // clearEntBttn
             // 
-            clearEntBttn.Location = new Point(70, 106);
+            clearEntBttn.Location = new Point(70, 114);
             clearEntBttn.Name = "clearEntBttn";
             clearEntBttn.Size = new Size(52, 49);
             clearEntBttn.TabIndex = 2;
@@ -198,52 +211,61 @@
             // 
             // memorySbtrctBttn
             // 
-            memorySbtrctBttn.Location = new Point(244, 216);
+            memorySbtrctBttn.Enabled = false;
+            memorySbtrctBttn.Location = new Point(244, 224);
             memorySbtrctBttn.Name = "memorySbtrctBttn";
             memorySbtrctBttn.Size = new Size(52, 49);
             memorySbtrctBttn.TabIndex = 14;
             memorySbtrctBttn.Text = "M-";
             memorySbtrctBttn.UseVisualStyleBackColor = true;
+            memorySbtrctBttn.Click += memorySbtrctBttn_Click;
             // 
             // memorySmBttn
             // 
-            memorySmBttn.Location = new Point(186, 216);
+            memorySmBttn.Enabled = false;
+            memorySmBttn.Location = new Point(186, 224);
             memorySmBttn.Name = "memorySmBttn";
             memorySmBttn.Size = new Size(52, 49);
             memorySmBttn.TabIndex = 13;
             memorySmBttn.Text = "M+";
             memorySmBttn.UseVisualStyleBackColor = true;
+            memorySmBttn.Click += memorySmBttn_Click;
             // 
             // memoryStrBttn
             // 
-            memoryStrBttn.Location = new Point(244, 161);
+            memoryStrBttn.Location = new Point(244, 169);
             memoryStrBttn.Name = "memoryStrBttn";
             memoryStrBttn.Size = new Size(52, 49);
             memoryStrBttn.TabIndex = 9;
             memoryStrBttn.Text = "MS";
             memoryStrBttn.UseVisualStyleBackColor = true;
+            memoryStrBttn.Click += memoryStrBttn_Click;
             // 
             // memoryRcllBttn
             // 
-            memoryRcllBttn.Location = new Point(186, 161);
+            memoryRcllBttn.Enabled = false;
+            memoryRcllBttn.Location = new Point(186, 169);
             memoryRcllBttn.Name = "memoryRcllBttn";
             memoryRcllBttn.Size = new Size(52, 49);
             memoryRcllBttn.TabIndex = 8;
             memoryRcllBttn.Text = "MR";
             memoryRcllBttn.UseVisualStyleBackColor = true;
+            memoryRcllBttn.Click += memoryRcllBttn_Click;
             // 
             // memoryClrBttn
             // 
-            memoryClrBttn.Location = new Point(186, 106);
+            memoryClrBttn.Enabled = false;
+            memoryClrBttn.Location = new Point(186, 114);
             memoryClrBttn.Name = "memoryClrBttn";
-            memoryClrBttn.Size = new Size(110, 49);
+            memoryClrBttn.Size = new Size(52, 49);
             memoryClrBttn.TabIndex = 4;
             memoryClrBttn.Text = "MC";
             memoryClrBttn.UseVisualStyleBackColor = true;
+            memoryClrBttn.Click += memoryClrBttn_Click;
             // 
             // decimalBttn
             // 
-            decimalBttn.Location = new Point(128, 326);
+            decimalBttn.Location = new Point(128, 334);
             decimalBttn.Name = "decimalBttn";
             decimalBttn.Size = new Size(52, 49);
             decimalBttn.TabIndex = 21;
@@ -254,7 +276,7 @@
             // 
             // equalBttn
             // 
-            equalBttn.Location = new Point(186, 326);
+            equalBttn.Location = new Point(186, 334);
             equalBttn.Name = "equalBttn";
             equalBttn.Size = new Size(52, 49);
             equalBttn.TabIndex = 22;
@@ -267,7 +289,7 @@
             // 
             operators.FormattingEnabled = true;
             operators.Items.AddRange(new object[] { "+", "-", "*", "/" });
-            operators.Location = new Point(244, 285);
+            operators.Location = new Point(244, 293);
             operators.MaxDropDownItems = 4;
             operators.Name = "operators";
             operators.Size = new Size(52, 23);
@@ -276,7 +298,7 @@
             // 
             // applyBttn
             // 
-            applyBttn.Location = new Point(244, 326);
+            applyBttn.Location = new Point(244, 334);
             applyBttn.Name = "applyBttn";
             applyBttn.Size = new Size(52, 49);
             applyBttn.TabIndex = 23;
@@ -286,7 +308,7 @@
             // 
             // delBttn
             // 
-            delBttn.Location = new Point(12, 106);
+            delBttn.Location = new Point(12, 114);
             delBttn.Name = "delBttn";
             delBttn.Size = new Size(52, 49);
             delBttn.TabIndex = 1;
@@ -300,7 +322,7 @@
             calculatorDisplay.BackColor = Color.White;
             calculatorDisplay.Font = new Font("Bodoni MT", 32.25F, FontStyle.Regular, GraphicsUnit.Point);
             calculatorDisplay.ForeColor = Color.Black;
-            calculatorDisplay.Location = new Point(12, 41);
+            calculatorDisplay.Location = new Point(12, 49);
             calculatorDisplay.Name = "calculatorDisplay";
             calculatorDisplay.ReadOnly = true;
             calculatorDisplay.Size = new Size(284, 59);
@@ -313,18 +335,113 @@
             // 
             displayHistLabel.BackColor = SystemColors.Control;
             displayHistLabel.BorderStyle = BorderStyle.None;
-            displayHistLabel.Location = new Point(12, 12);
+            displayHistLabel.Location = new Point(12, 27);
             displayHistLabel.Name = "displayHistLabel";
             displayHistLabel.ReadOnly = true;
             displayHistLabel.Size = new Size(284, 16);
             displayHistLabel.TabIndex = 0;
             displayHistLabel.TextAlign = HorizontalAlignment.Right;
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, exportToTextToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(308, 24);
+            menuStrip1.TabIndex = 25;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearToolStripMenuItem, exitToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // clearToolStripMenuItem
+            // 
+            clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            clearToolStripMenuItem.Size = new Size(101, 22);
+            clearToolStripMenuItem.Text = "Clear";
+            clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(101, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // editToolStripMenuItem
+            // 
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { copyToolStripMenuItem, pasteToolStripMenuItem });
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(39, 20);
+            editToolStripMenuItem.Text = "Edit";
+            // 
+            // copyToolStripMenuItem
+            // 
+            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            copyToolStripMenuItem.Size = new Size(102, 22);
+            copyToolStripMenuItem.Text = "Copy";
+            copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
+            // 
+            // pasteToolStripMenuItem
+            // 
+            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            pasteToolStripMenuItem.Size = new Size(102, 22);
+            pasteToolStripMenuItem.Text = "Paste";
+            pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
+            // 
+            // exportToTextToolStripMenuItem
+            // 
+            exportToTextToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exportToTextToolStripMenuItem1, importFromTextToolStripMenuItem });
+            exportToTextToolStripMenuItem.Name = "exportToTextToolStripMenuItem";
+            exportToTextToolStripMenuItem.Size = new Size(57, 20);
+            exportToTextToolStripMenuItem.Text = "History";
+            // 
+            // exportToTextToolStripMenuItem1
+            // 
+            exportToTextToolStripMenuItem1.Name = "exportToTextToolStripMenuItem1";
+            exportToTextToolStripMenuItem1.Size = new Size(180, 22);
+            exportToTextToolStripMenuItem1.Text = "Export to Text";
+            exportToTextToolStripMenuItem1.Click += exportToTextToolStripMenuItem1_Click;
+            // 
+            // importFromTextToolStripMenuItem
+            // 
+            importFromTextToolStripMenuItem.Name = "importFromTextToolStripMenuItem";
+            importFromTextToolStripMenuItem.Size = new Size(180, 22);
+            importFromTextToolStripMenuItem.Text = "Import from Text";
+            importFromTextToolStripMenuItem.Click += importFromTextToolStripMenuItem_Click;
+            // 
+            // memoryListBox
+            // 
+            memoryListBox.FormattingEnabled = true;
+            memoryListBox.ItemHeight = 15;
+            memoryListBox.Location = new Point(303, 49);
+            memoryListBox.Name = "memoryListBox";
+            memoryListBox.Size = new Size(120, 334);
+            memoryListBox.TabIndex = 26;
+            memoryListBox.Visible = false;
+            // 
+            // button11
+            // 
+            button11.Enabled = false;
+            button11.Location = new Point(244, 114);
+            button11.Name = "button11";
+            button11.Size = new Size(52, 49);
+            button11.TabIndex = 27;
+            button11.Text = "M >";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(308, 387);
+            ClientSize = new Size(308, 395);
+            Controls.Add(button11);
+            Controls.Add(memoryListBox);
             Controls.Add(displayHistLabel);
             Controls.Add(calculatorDisplay);
             Controls.Add(delBttn);
@@ -350,8 +467,10 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             KeyPreview = true;
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -359,6 +478,8 @@
             KeyDown += key_clicked;
             KeyPress += key_pressed;
             KeyUp += key_released;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -390,5 +511,17 @@
         private Button delBttn;
         private TextBox calculatorDisplay;
         private TextBox displayHistLabel;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem clearToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem;
+        private ToolStripMenuItem copyToolStripMenuItem;
+        private ToolStripMenuItem pasteToolStripMenuItem;
+        private ToolStripMenuItem exportToTextToolStripMenuItem;
+        private ToolStripMenuItem exportToTextToolStripMenuItem1;
+        private ToolStripMenuItem importFromTextToolStripMenuItem;
+        private ListBox memoryListBox;
+        private Button button11;
     }
 }
