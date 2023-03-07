@@ -403,13 +403,14 @@
             // exportToTextToolStripMenuItem1
             // 
             exportToTextToolStripMenuItem1.Name = "exportToTextToolStripMenuItem1";
-            exportToTextToolStripMenuItem1.Size = new Size(163, 22);
+            exportToTextToolStripMenuItem1.Size = new Size(180, 22);
             exportToTextToolStripMenuItem1.Text = "Export to Text";
+            exportToTextToolStripMenuItem1.Click += exportToTextToolStripMenuItem1_Click;
             // 
             // importFromTextToolStripMenuItem
             // 
             importFromTextToolStripMenuItem.Name = "importFromTextToolStripMenuItem";
-            importFromTextToolStripMenuItem.Size = new Size(163, 22);
+            importFromTextToolStripMenuItem.Size = new Size(180, 22);
             importFromTextToolStripMenuItem.Text = "Import from Text";
             // 
             // memoryListBox

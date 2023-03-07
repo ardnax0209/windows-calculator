@@ -1,10 +1,16 @@
+using System.ComponentModel;
+using System;
 using System.Globalization;
+using System.Xml;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace Calculator
 {
     public partial class Form1 : Form
     {
         string lastClicked = "";
+
+        string[,] historyTrail = new string[50, 3];
 
         public Form1()
         {
@@ -59,6 +65,34 @@ namespace Calculator
             lastClicked = "";
 
             displayHistLabel.Focus();
+
+            string id = "";
+            int cntr = 0;
+            for (int i = 0; i < 50; i++)
+            {
+                if (i.ToString() == historyTrail[i, 0])
+                {
+                    int holder = Convert.ToInt32(historyTrail[i, 0]) + 1;
+                    id = holder.ToString();
+                }
+                else
+                {
+                    if (i == 0)
+                    {
+                        cntr = i;
+                        id = "1";
+                    }
+                    else
+                    {
+                        cntr = i;
+                        break;
+                    }
+                }
+            }
+
+            historyTrail[cntr, 0] = id;
+            historyTrail[cntr, 1] = "Clear";
+            historyTrail[cntr, 2] = "0";
         }
 
         private void signBttn_Click(object sender, EventArgs e)
@@ -132,11 +166,13 @@ namespace Calculator
         {
             string label = displayHistLabel.Text;
             string display = calculatorDisplay.Text;
-            double result;
+            double result = 0;
+            string action = "";
 
             if (label == "")
             {
                 displayHistLabel.Text = calculatorDisplay.Text + " =";
+                action = "Equal";
             }
             else
             {
@@ -153,6 +189,7 @@ namespace Calculator
 
                         displayHistLabel.Text = label + display + " =";
                         calculatorDisplay.Text = result.ToString();
+                        action = "Add";
                         break;
                     case '-':
                         initialDbl = Convert.ToDouble(initialNum);
@@ -160,6 +197,7 @@ namespace Calculator
 
                         displayHistLabel.Text = label + display + " =";
                         calculatorDisplay.Text = result.ToString();
+                        action = "Subtract";
                         break;
                     case '*':
                         initialDbl = Convert.ToDouble(initialNum);
@@ -167,6 +205,7 @@ namespace Calculator
 
                         displayHistLabel.Text = label + display + " =";
                         calculatorDisplay.Text = result.ToString();
+                        action = "Multiply";
                         break;
                     case '/':
                         initialDbl = Convert.ToDouble(initialNum);
@@ -182,6 +221,7 @@ namespace Calculator
                             displayHistLabel.Text = label + display + " =";
                             calculatorDisplay.Text = result.ToString();
                         }
+                        action = "Divide";
                         break;
                     default:
                         //check what the last character is. if number or equal
@@ -197,6 +237,7 @@ namespace Calculator
 
                             displayHistLabel.Text = display + "+" + initialNum + "=";
                             calculatorDisplay.Text = result.ToString();
+                            action = "Add";
                         }
                         else if (label.Contains("*"))
                         {
@@ -210,6 +251,7 @@ namespace Calculator
 
                             displayHistLabel.Text = display + "*" + initialNum + "=";
                             calculatorDisplay.Text = result.ToString();
+                            action = "Multiply";
                         }
                         else if (label.Contains('/'))
                         {
@@ -230,6 +272,7 @@ namespace Calculator
                                 displayHistLabel.Text = display + "/" + initialNum + "=";
                                 calculatorDisplay.Text = result.ToString();
                             }
+                            action = "Divide";
                         }
                         else if (label.Contains("-"))
                         {
@@ -243,12 +286,45 @@ namespace Calculator
 
                             displayHistLabel.Text = display + "-" + initialNum + "=";
                             calculatorDisplay.Text = result.ToString();
+                            action = "Subtract";
                         }
                         break;
                 }
             }
 
             //lastClicked = "";
+            
+            string id = "";
+            int cntr = 0;
+            for (int i = 0; i < 50; i++)
+            {
+                if (i.ToString() == historyTrail[i, 0])
+                {
+                    int holder = Convert.ToInt32(historyTrail[i, 0]) + 1;
+                    id = holder.ToString();
+                } else
+                {
+                    if (i == 0)
+                    {
+                        cntr = i;
+                        id = "1";
+                    } else
+                    {
+                        cntr = i;
+                        break;
+                    }
+                }
+            }
+            
+            historyTrail[cntr, 0] = id;
+            historyTrail[cntr, 1] = action;
+            if (calculatorDisplay.Text != "Error!")
+            {
+                historyTrail[cntr, 2] = result.ToString();
+            } else
+            {
+                historyTrail[cntr, 2] = "Error!";
+            }
         }
 
         private void applyBttn_Click(object sender, EventArgs e)
@@ -598,6 +674,61 @@ namespace Calculator
             double result = lastDbl - Convert.ToDouble(calculatorDisplay.Text);
 
             memoryListBox.Items[numOfItems - 1] = result.ToString();
+        }
+
+        private void exportToTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string pathName = "";
+            bool proceedCheck = false;
+            // Displays a SaveFileDialog so the user can save the file
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "XML-File | *.xml";
+            saveFileDialog1.Title = "Save XML File";
+            saveFileDialog1.ShowDialog();
+
+            // Saves the file via a FileStream created by the OpenFile method.
+            System.IO.FileStream fs =
+                (System.IO.FileStream)saveFileDialog1.OpenFile();
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog1.FileName != "")
+            {
+                pathName = saveFileDialog1.FileName;
+                proceedCheck = true;
+            } else
+            {
+                MessageBox.Show("Error: Cannot save file.");
+            }
+            fs.Close();
+
+            if (proceedCheck == true)
+            {
+                XmlTextWriter xmlWriter = new XmlTextWriter(pathName, System.Text.Encoding.UTF8);
+                xmlWriter.Formatting = Formatting.Indented;
+                xmlWriter.WriteStartDocument();
+                    xmlWriter.WriteComment("Calculator history trail as of " + DateTime.Now.ToString());
+                    xmlWriter.WriteStartElement("Records");
+                        for (int i = 0; i < 50; i++)
+                        {
+                            try
+                            {
+                                xmlWriter.WriteStartElement("Entry");
+                                xmlWriter.WriteElementString("Hist_ID", historyTrail[i, 0]);
+                                xmlWriter.WriteElementString("Hist_Action", historyTrail[i, 1]);
+                                xmlWriter.WriteElementString("Hist_Value", historyTrail[i, 2]);
+                                xmlWriter.WriteEndElement();
+                            }
+                            catch
+                            {
+                                Console.WriteLine("No item found on array.");
+                                break;
+                            }
+                        }
+                    xmlWriter.WriteEndElement();
+                xmlWriter.WriteEndDocument();
+                xmlWriter.Flush();
+                xmlWriter.Close();
+            }
         }
     }
 }
