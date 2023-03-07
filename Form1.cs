@@ -293,7 +293,7 @@ namespace Calculator
             }
 
             //lastClicked = "";
-            
+
             string id = "";
             int cntr = 0;
             for (int i = 0; i < 50; i++)
@@ -302,26 +302,26 @@ namespace Calculator
                 {
                     int holder = Convert.ToInt32(historyTrail[i, 0]) + 1;
                     id = holder.ToString();
-                } else
+                }
+                else if (i == 0)
                 {
-                    if (i == 0)
-                    {
-                        cntr = i;
-                        id = "1";
-                    } else
-                    {
-                        cntr = i;
-                        break;
-                    }
+                    cntr = i;
+                    id = "1";
+                }
+                else
+                {
+                    cntr = i;
+                    break;
                 }
             }
-            
+
             historyTrail[cntr, 0] = id;
             historyTrail[cntr, 1] = action;
             if (calculatorDisplay.Text != "Error!")
             {
                 historyTrail[cntr, 2] = result.ToString();
-            } else
+            }
+            else
             {
                 historyTrail[cntr, 2] = "Error!";
             }
@@ -695,7 +695,8 @@ namespace Calculator
             {
                 pathName = saveFileDialog1.FileName;
                 proceedCheck = true;
-            } else
+            }
+            else
             {
                 MessageBox.Show("Error: Cannot save file.");
             }
@@ -706,29 +707,84 @@ namespace Calculator
                 XmlTextWriter xmlWriter = new XmlTextWriter(pathName, System.Text.Encoding.UTF8);
                 xmlWriter.Formatting = Formatting.Indented;
                 xmlWriter.WriteStartDocument();
-                    xmlWriter.WriteComment("Calculator history trail as of " + DateTime.Now.ToString());
-                    xmlWriter.WriteStartElement("Records");
-                        for (int i = 0; i < 50; i++)
+                xmlWriter.WriteComment("Calculator history trail as of " + DateTime.Now.ToString());
+                xmlWriter.WriteStartElement("Records");
+                for (int i = 1; i < 50; i++)
+                {
+                    try
+                    {
+                        if (String.IsNullOrEmpty(historyTrail[i, 0]))
                         {
-                            try
-                            {
-                                xmlWriter.WriteStartElement("Entry");
-                                xmlWriter.WriteElementString("Hist_ID", historyTrail[i, 0]);
-                                xmlWriter.WriteElementString("Hist_Action", historyTrail[i, 1]);
-                                xmlWriter.WriteElementString("Hist_Value", historyTrail[i, 2]);
-                                xmlWriter.WriteEndElement();
-                            }
-                            catch
-                            {
-                                Console.WriteLine("No item found on array.");
-                                break;
-                            }
+                            break;
+                        } else
+                        {
+                            xmlWriter.WriteStartElement("Entry");
+                            xmlWriter.WriteElementString("Hist_ID", historyTrail[i, 0]);
+                            xmlWriter.WriteElementString("Hist_Action", historyTrail[i, 1]);
+                            xmlWriter.WriteElementString("Hist_Value", historyTrail[i, 2]);
+                            xmlWriter.WriteEndElement();
                         }
-                    xmlWriter.WriteEndElement();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("No item found on array.");
+                        break;
+                    }
+                }
+                xmlWriter.WriteEndElement();
                 xmlWriter.WriteEndDocument();
                 xmlWriter.Flush();
                 xmlWriter.Close();
             }
+        }
+
+        private void importFromTextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "XML-File | *.xml";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
+
+            //Create a document which will read XML from file
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
+
+            int i = 0;
+            //Find id node
+            foreach (XmlNode node in doc.DocumentElement.ChildNodes)
+            {
+                string histId = node.SelectSingleNode("Hist_ID").InnerText;
+                string histAction = node.SelectSingleNode("Hist_Action").InnerText;
+                string histValue = node.SelectSingleNode("Hist_Value").InnerText;
+
+                historyTrail[i, 0] = histId;
+                historyTrail[i, 1] = histAction;
+                historyTrail[i, 2] = histValue;
+
+                i++;
+            }
+
+            calculatorDisplay.Text = historyTrail[i - 1, 2];
         }
     }
 }

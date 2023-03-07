@@ -412,6 +412,7 @@
             importFromTextToolStripMenuItem.Name = "importFromTextToolStripMenuItem";
             importFromTextToolStripMenuItem.Size = new Size(180, 22);
             importFromTextToolStripMenuItem.Text = "Import from Text";
+            importFromTextToolStripMenuItem.Click += importFromTextToolStripMenuItem_Click;
             // 
             // memoryListBox
             // 
